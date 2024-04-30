@@ -1,0 +1,14 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "docker-build-and-run",
+            "type": "shell",
+            "command": "docker build -t myapp . && docker run -p 3000:3000 myapp",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
