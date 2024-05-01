@@ -41,5 +41,5 @@ jobs:
 
     - name: Start application
       run: |
-        pm2 delete hema-nextjs-client || true
-        pm2 start npm --name "hema-nextjs-client" -- start
+        npx pm2 delete hema-nextjs-client || true
+        npx pm2 start npm --name "hema-nextjs-client" -- start
