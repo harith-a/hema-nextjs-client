@@ -23,12 +23,18 @@ jobs:
       run: npm ci
 
     - name: Copy secrets
+      env:
+        DATABASE_URL: ${{ secrets.DATABASE_URL || 'default' }}
+        GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID || 'default' }}
+        GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET || 'default' }}
+        NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET || 'default' }}
+        NODE_ENV: ${{ secrets.NODE_ENV || 'default' }}
       run: |
-        echo "DATABASE_URL=${{ secrets.DATABASE_URL:-default }}" >> .env
-        echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID:-default }}" >> .env
-        echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET:-default }}" >> .env
-        echo "NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET:-default }}" >> .env
-        echo "NODE_ENV=${{ secrets.NODE_ENV:-default }}" >> .env
+        echo "DATABASE_URL=${DATABASE_URL}" >> .env
+        echo "GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}" >> .env
+        echo "GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}" >> .env
+        echo "NEXTAUTH_SECRET=${NEXTAUTH_SECRET}" >> .env
+        echo "NODE_ENV=${NODE_ENV}" >> .env
 
     - name: Build
       run: npm run build
