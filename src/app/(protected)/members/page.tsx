@@ -2,7 +2,7 @@ import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import { DataTable } from '@/components/DataTable';
 import { CardHeader, CardTitle, CardDescription, CardContent, Card } from '@/components/ui/card';
-import { getMembers } from './getMembers';
+import { getMembers } from '@/lib/db-context';
 
 const MembersPage = async () => {
 	const session = await getServerSession();
@@ -11,7 +11,8 @@ const MembersPage = async () => {
 		redirect('/login');
 	}
 
-    const data = getMembers();
+    const data = await getMembers(20, 10);
+    console.log('length', data.length);
     
 
 	return (
@@ -20,9 +21,9 @@ const MembersPage = async () => {
             <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
                 <Card>
                     <CardHeader className='px-7'>
-                        <CardTitle>Orders</CardTitle>
+                        <CardTitle>Members</CardTitle>
                         <CardDescription>
-                        Recent orders from your store.
+                        Ahli Pertubuhan IKRAM Malaysia
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
