@@ -24,11 +24,16 @@ jobs:
 
     - name: Copy secrets
       run: |
-         echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
-         echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" >> .env
-         echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> .env
-         echo "NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}" >> .env
-         echo "NODE_ENV=${{ secrets.NODE_ENV }}" >> .env
+        echo "DATABASE_URL=${{ secrets.DATABASE_URL:-default }}" >> .env
+        echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID:-default }}" >> .env
+        echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET:-default }}" >> .env
+        echo "NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET:-default }}" >> .env
+        echo "NODE_ENV=${{ secrets.NODE_ENV:-default }}" >> .env
 
     - name: Build
       run: npm run build
+
+    - name: Start application
+      run: |
+        pm2 delete hema-nextjs-client || true
+        pm2 start npm --name "hema-nextjs-client" -- start
