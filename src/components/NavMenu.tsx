@@ -5,7 +5,7 @@ import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import Button from '@/components/Button';
 import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from '@radix-ui/react-tooltip';
-import { Package2, Home, ShoppingCart, Package, Users2, LineChart, Settings } from 'lucide-react';
+import { Package2, Home, Users2, Settings, Search } from 'lucide-react';
 
 function AuthButton() {
 	const { data: session } = useSession();
@@ -68,6 +68,18 @@ const NavMenu = () => {
                 </Link>
               </TooltipTrigger>
               <TooltipContent side='right'>Members</TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Link
+                  href='/search'
+                  className='flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8'
+                >
+                  <Search className='h-5 w-5' />
+                  <span className='sr-only'>Search</span>
+                </Link>
+              </TooltipTrigger>
+              <TooltipContent side='right'>Search</TooltipContent>
             </Tooltip>
           </TooltipProvider>
         </nav>
